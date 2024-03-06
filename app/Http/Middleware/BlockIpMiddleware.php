@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class BlockIpMiddleware
 {
     // set IP addresses
-    public $blockIps = ['127.0.0.1','187.251.242.253','192.168.3.47'];
+    public $blockIps = [];
     /**
      * Handle an incoming request.
      *
@@ -17,9 +17,9 @@ class BlockIpMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (in_array($request->ip(), $this->blockIps)) {
+        if (!in_array($request->ip(), $this->blockIps)) {
             return response()->json([
-                'message' => "You don't have permission to access this website.",
+                'message' => "......",
                 'ip_address' => $request->ips()
             ], 401);
         }
